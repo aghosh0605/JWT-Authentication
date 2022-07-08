@@ -1,8 +1,13 @@
-require("dotenv").config();
-const mongoose = require("mongoose");
-const MONGO_URI = "mongodb://localhost:27017/test";
+require('dotenv').config();
+const mongoose = require('mongoose');
+const MONGO_URI = process.env.MONGO_URI;
 
-exports.connect = () => {
+// See the difference between putting mongo URI in string format in .env
+// console.log(process.env);
+// console.log(process.env.MONGO_URI);
+// console.log(MONGO_URI);
+
+exports.mongoConnect = () => {
   // Connecting to the database
   mongoose
     .connect(MONGO_URI, {
@@ -10,10 +15,10 @@ exports.connect = () => {
       useUnifiedTopology: true,
     })
     .then(() => {
-      console.log("Successfully connected to database");
+      console.log('Successfully connected to database');
     })
     .catch((error) => {
-      console.log("database connection failed. exiting now...");
+      console.log('database connection failed. exiting now...');
       console.error(error);
       process.exit(1);
     });
